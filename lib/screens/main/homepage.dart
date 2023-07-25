@@ -41,9 +41,9 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const SizedBox(
-            height: 10,
+            height: 12,
           ),
-          pageView(),
+          pageView(),git 
           indicator(),
           const SizedBox(
             height: 5,
