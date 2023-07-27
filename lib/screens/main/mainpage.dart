@@ -25,9 +25,10 @@ class _MainpageState extends State<Mainpage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
+     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: context.theme.brightness,
         statusBarColor: Colors.transparent));
+    
 
     final Controller controller = Get.put(Controller());
 

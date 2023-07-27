@@ -22,11 +22,6 @@ class Controller extends GetxController {
   reverseIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value = !isPlayingVideoFromDetailPage.value;
   bool getIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value;
 
-  var isDarkMode = false.obs;
-  setIsDarkMode(bool value) =>
-      isDarkMode.value = value;
-  reverseIsDarkMode() =>
-      isDarkMode.value = !isDarkMode.value;
-  bool getIsDarkMode() => isDarkMode.value;
+
 
 }

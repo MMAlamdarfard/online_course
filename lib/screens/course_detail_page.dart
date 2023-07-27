@@ -150,7 +150,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                             Row(
                               children: [
                                 Image.asset(
-                                  "assets/images/profile.jpg",
+                                  "assets/images/profile.png",
                                   width: 40,
                                   height: 40,
                                   fit: BoxFit.cover,

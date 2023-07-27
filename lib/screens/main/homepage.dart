@@ -36,18 +36,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("object     ${Get.isDarkMode}");
     return Scaffold(
         body: ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: SingleChildScrollView(
-            
-              child: Column(
+      behavior: MyBehavior(),
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const SizedBox(
               height: 12,
             ),
-            pageView(), 
+            pageView(),
             indicator(),
             const SizedBox(
               height: 5,
@@ -73,9 +73,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Expanded(
                         child: ListView.builder(
-                            physics:const BouncingScrollPhysics(
-                              decelerationRate: ScrollDecelerationRate.fast
-                            ),
+                            physics: const BouncingScrollPhysics(
+                                decelerationRate: ScrollDecelerationRate.fast),
                             reverse: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: listcourses.length,
@@ -85,8 +84,9 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Get.toNamed(Screens.courseDetailPage,
                                         parameters: {
-                                          "model":
-                                              listcourses[index].price.toString()
+                                          "model": listcourses[index]
+                                              .price
+                                              .toString()
                                         });
                                   },
                                   child: Column(
@@ -111,11 +111,13 @@ class _HomePageState extends State<HomePage> {
                                               image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: AssetImage(
-                                                      listcourses[index].path))),
+                                                      listcourses[index]
+                                                          .path))),
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(right: 10),
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
@@ -150,9 +152,9 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             )
           ],
-              ),
-            ),
-        ));
+        ),
+      ),
+    ));
   }
 
   indicator() {

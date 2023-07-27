@@ -20,7 +20,7 @@ class _MyAppBarState extends State<MyAppBar> {
     
     return Container(
         decoration: BoxDecoration(
-          color: AppColors.mainColor,
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: AppColors.blueColor.withOpacity(0.2),
@@ -38,7 +38,7 @@ class _MyAppBarState extends State<MyAppBar> {
             Row(
               children: [
                 Image.asset(
-                  "assets/images/profile.jpg",
+                  "assets/images/profile.png",
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
