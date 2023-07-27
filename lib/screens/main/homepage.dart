@@ -36,8 +36,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("object     ${Get.isDarkMode}");
+   
     return Scaffold(
+      backgroundColor: context.theme.primaryColor,
         body: ScrollConfiguration(
       behavior: MyBehavior(),
       child: SingleChildScrollView(

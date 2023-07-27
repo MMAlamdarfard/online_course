@@ -30,13 +30,14 @@ class AppColors extends ColorScheme {
     brightness: Brightness.light,
     
   );
+  
   static final light = ThemeData(
-    brightness: Brightness.light
-   // colorScheme: lightColorScheme,
+    primaryColor: Colors.white,
+    brightness: Brightness.light,
   );
   static final dark = ThemeData(
-    brightness: Brightness.dark
-    //colorScheme: darkColorScheme,
+    primaryColor: darkGreyClr,
+    brightness: Brightness.dark,
   );
 
 

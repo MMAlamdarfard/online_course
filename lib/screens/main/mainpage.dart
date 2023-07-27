@@ -31,7 +31,7 @@ class _MainpageState extends State<Mainpage> {
     
 
     final Controller controller = Get.put(Controller());
-
+  
     return Scaffold(
         body: Stack(
       children: [
