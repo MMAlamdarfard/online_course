@@ -20,7 +20,7 @@ class _MyAppBarState extends State<MyAppBar> {
     
     return Container(
         decoration: BoxDecoration(
-          color: context.theme.primaryColor,
+          color: AppColors.mainColor,
           boxShadow: [
             BoxShadow(
               color: AppColors.blueColor.withOpacity(0.2),

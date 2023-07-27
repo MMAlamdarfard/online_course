@@ -5,6 +5,7 @@ import 'package:onlinecourse/model/pageview_model.dart';
 import 'package:onlinecourse/constant/colors.dart';
 import 'package:get/get.dart';
 import 'package:onlinecourse/routes/name.dart';
+import 'package:onlinecourse/widget/scroll_behavior.dart';
 
 import '../../controller/controller.dart';
 
@@ -36,115 +37,122 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const SizedBox(
-            height: 12,
-          ),
-          pageView(), 
-          indicator(),
-          const SizedBox(
-            height: 5,
-          ),
-          ...courseModel.keys.map((course) {
-            List<Course> listcourses = courseModel[course] ?? [];
-            if (listcourses.isNotEmpty) {
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                height: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        course,
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+        body: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: SingleChildScrollView(
+            
+              child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(
+              height: 12,
+            ),
+            pageView(), 
+            indicator(),
+            const SizedBox(
+              height: 5,
+            ),
+            ...courseModel.keys.map((course) {
+              List<Course> listcourses = courseModel[course] ?? [];
+              if (listcourses.isNotEmpty) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  height: 300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          course,
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(0.7),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                          reverse: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listcourses.length,
-                          itemBuilder: (context, index) {
-                            return Material(
-                              child: InkWell(
-                                onTap: () {
-                                  Get.toNamed(Screens.courseDetailPage,
-                                      parameters: {
-                                        "model":
-                                            listcourses[index].price.toString()
-                                      });
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 10),
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: AppColors.greyColor
-                                                    .withOpacity(0.4),
-                                                blurRadius: 8.0,
-                                                spreadRadius: 2.0,
-                                              ),
-                                            ],
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: AssetImage(
-                                                    listcourses[index].path))),
+                      Expanded(
+                        child: ListView.builder(
+                            physics:const BouncingScrollPhysics(
+                              decelerationRate: ScrollDecelerationRate.fast
+                            ),
+                            reverse: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listcourses.length,
+                            itemBuilder: (context, index) {
+                              return Material(
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(Screens.courseDetailPage,
+                                        parameters: {
+                                          "model":
+                                              listcourses[index].price.toString()
+                                        });
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 10),
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColors.greyColor
+                                                      .withOpacity(0.4),
+                                                  blurRadius: 8.0,
+                                                  spreadRadius: 2.0,
+                                                ),
+                                              ],
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage(
+                                                      listcourses[index].path))),
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            listcourses[index].description,
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Text("تومان"),
-                                              Text(
-                                                  " ${DigitFormat.convert(listcourses[index].price.toString(), separator: ",")} "),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              listcourses[index].description,
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text("تومان"),
+                                                Text(
+                                                    " ${DigitFormat.convert(listcourses[index].price.toString(), separator: ",")} "),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          }),
-                    )
-                  ],
-                ),
-              );
-            } else {
-              return Container();
-            }
-          }),
-          const SizedBox(
-            height: 20,
-          )
-        ],
-      ),
-    ));
+                              );
+                            }),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+              ),
+            ),
+        ));
   }
 
   indicator() {

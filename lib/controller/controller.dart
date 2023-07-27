@@ -2,6 +2,8 @@
 import 'package:get/get.dart';
 
 class Controller extends GetxController {
+  
+  
   var index = 0.obs;
   setIndex(int value) => index.value = value;
   int getIndex() => index.value;
@@ -20,6 +22,11 @@ class Controller extends GetxController {
   reverseIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value = !isPlayingVideoFromDetailPage.value;
   bool getIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value;
 
- 
+  var isDarkMode = false.obs;
+  setIsDarkMode(bool value) =>
+      isDarkMode.value = value;
+  reverseIsDarkMode() =>
+      isDarkMode.value = !isDarkMode.value;
+  bool getIsDarkMode() => isDarkMode.value;
 
 }
