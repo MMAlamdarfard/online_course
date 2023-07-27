@@ -12,5 +12,5 @@ List<Lesson> lessonsModel = [
   Lesson("Ui design", "2:40", "videoPath"),
   Lesson("State Managment", "5:40", "videoPath"),
   Lesson("Ui design", "2:40", "videoPath"),
-  Lesson("GetX tuturial", "5:40", "videoPath"),
+  Lesson("GetX toturial", "5:40", "videoPath"),
 ];

@@ -15,4 +15,11 @@ class Controller extends GetxController {
   reverseShowMoreText() => showMoreText.value = !showMoreText.value;
   bool getshowMoreText() => showMoreText.value;
 
+  var isPlayingVideoFromDetailPage = false.obs;
+  setIsPlayingVideoFromDetailPage(bool value) => isPlayingVideoFromDetailPage.value = value;
+  reverseIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value = !isPlayingVideoFromDetailPage.value;
+  bool getIsPlayingVideoFromDetailPage() => isPlayingVideoFromDetailPage.value;
+
+ 
+
 }

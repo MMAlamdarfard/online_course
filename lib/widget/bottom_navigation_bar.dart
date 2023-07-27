@@ -123,8 +123,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                   () => Column(
                     children: [
                       Container(
-                        width: 60,
-                        height: 60,
+                       
                         decoration: BoxDecoration(
                             color: AppColors.blueColor.withOpacity(0.8),
                             borderRadius: BorderRadius.circular(30),
@@ -135,15 +134,16 @@ class MyBottomNavigationBar extends StatelessWidget {
                                 spreadRadius: 1,
                               )
                             ]),
-                        child: const Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 40,
+                        child:const Padding(
+                          padding: EdgeInsets.all(8),
+                          child:  Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 40,
+                          ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 1,
-                      ),
+                     
                       Text(
                         AppString.search,
                         style: TextStyle(

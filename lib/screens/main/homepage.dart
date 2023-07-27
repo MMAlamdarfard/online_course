@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 12,
           ),
-          pageView(),git 
+          pageView(), 
           indicator(),
           const SizedBox(
             height: 5,

@@ -6,27 +6,51 @@ import 'package:flutter/material.dart';
 import 'package:digit_to_persian_word/digit_to_persian_word.dart';
 import 'package:onlinecourse/constant/string.dart';
 import 'package:onlinecourse/controller/controller.dart';
+import 'package:onlinecourse/model/lesson.dart';
 
+import 'package:better_player/better_player.dart';
 import '../constant/colors.dart';
 
-class CourseDetailPage extends StatelessWidget {
+class CourseDetailPage extends StatefulWidget {
   const CourseDetailPage({super.key});
+
+  @override
+  State<CourseDetailPage> createState() => _CourseDetailPageState();
+}
+
+class _CourseDetailPageState extends State<CourseDetailPage> {
+  late BetterPlayerController betterPlayerController;
+  @override
+  void dispose() {
+    betterPlayerController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     Controller controller = Get.find();
+    BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
+      
+        BetterPlayerDataSourceType.network,
+        "http://192.168.157.248:3000/flutter1.mp4",
+         bufferingConfiguration: BetterPlayerBufferingConfiguration()
+
+         );
+    betterPlayerController = BetterPlayerController(const BetterPlayerConfiguration(
+      
+    ),
+        betterPlayerDataSource: betterPlayerDataSource);
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
         statusBarColor: Colors.transparent));
     return Scaffold(
       backgroundColor: Colors.white,
       body: SizedBox(
-        width: Get.width,
-        height: Get.height,
         child: Stack(children: [
           SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.only(bottom: 0.08 * Get.height),
+              margin: EdgeInsets.only(bottom: 0.09 * Get.height),
               child: Column(
                 children: [
                   Padding(
@@ -80,24 +104,29 @@ class CourseDetailPage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  Container(
-                      width: Get.width * 0.9,
-                      height: Get.height * 0.3,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue,
-                        image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                                "assets/images/flutter_tutorial.jpg")),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.greyColor.withOpacity(0.4),
-                            blurRadius: 12.0,
-                            spreadRadius: 5.0,
-                          ),
-                        ],
-                      )),
+                  (controller.getIsPlayingVideoFromDetailPage())
+                      ? Container(
+                          width: Get.width * 0.9,
+                          height: Get.height * 0.3,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.blue,
+                            image: const DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    "assets/images/flutter_tutorial.jpg")),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.greyColor.withOpacity(0.4),
+                                blurRadius: 12.0,
+                                spreadRadius: 5.0,
+                              ),
+                            ],
+                          ))
+                      : AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: BetterPlayer(
+                              controller: betterPlayerController)),
                   Container(
                     margin: const EdgeInsets.only(
                         left: 20, right: 20, top: 20, bottom: 5),
@@ -203,31 +232,72 @@ class CourseDetailPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin:const EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
                           "درس ها",
                           style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16
-                             
-                          ),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
                         ),
-                       ...List.generate(6, (index) {
-                        return Container(
-                        color: Colors.amber,
-                        margin:const EdgeInsets.symmetric(horizontal: 15,vertical: 20),
-                        height: 80,
-                  
-                      );
-                    })
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ...List.generate(lessonsModel.length, (index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
+                            height: 75,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.blueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: const Icon(
+                                                Icons.play_arrow_rounded,
+                                                color: Colors.white,
+                                              )),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(lessonsModel[index].title)
+                                        ],
+                                      ),
+                                      Text(lessonsModel[index].duration)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        })
                       ],
                     ),
                   ),
-                 
                 ],
               ),
             ),
@@ -237,375 +307,40 @@ class CourseDetailPage extends StatelessWidget {
               left: 10,
               right: 10,
               child: Container(
-                height: Get.height * 0.08,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Get.height * 0.08),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.greyColor.withOpacity(0.4),
-                      blurRadius: 7.0,
-                      spreadRadius: 5.0,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  margin:const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: AppColors.blueColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(Get.height*0.04))),
-                    child: const Text(
-                      "خرید اشتراک",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                  width: Get.width,
+                  height: Get.height * 0.08,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Get.height * 0.08),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.greyColor.withOpacity(0.4),
+                        blurRadius: 7.0,
+                        spreadRadius: 5.0,
                       ),
-                    ),),
-                )
-                // child: Material(
-                //   child: Container(
-                //     margin:const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                //     decoration: BoxDecoration(
-                //       color: Colors.blue,
-                //       borderRadius: BorderRadius.circular(Get.height * 0.08)
-                //     ),
-                //     child:InkWell(
-                //       onTap: (){},
-                //       child:const Center(
-                //         child: Text("dddddd"),
-                //       ),
-                //     ) ,
-                //   ),
-                // ),
-              )),
+                    ],
+                  ),
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: AppColors.blueColor,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Get.height * 0.04))),
+                      child: const Text(
+                        "خرید اشتراک",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ))),
         ]),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// // ignore: depend_on_referenced_packages
-// import 'package:flutter_svg/flutter_svg.dart';
-
-// import '../constant/constant.dart';
-
-// class DetailsScreen extends StatelessWidget {
-//   const DetailsScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         width: double.infinity,
-//         decoration: const BoxDecoration(
-//           color: Color(0xFFF5F4EF),
-//           image: DecorationImage(
-//             image: AssetImage("assets/images/ux_big.png"),
-//             alignment: Alignment.topRight,
-//           ),
-//         ),
-//         child: Column(
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.only(left: 20, top: 50, right: 20),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: <Widget>[
-//                       SvgPicture.asset("assets/icons/arrow-left.svg"),
-//                       SvgPicture.asset("assets/icons/more-vertical.svg"),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 30),
-//                   ClipPath(
-//                     clipper: BestSellerClipper(),
-//                     child: Container(
-//                       color: kBestSellerColor,
-//                       padding: const EdgeInsets.only(
-//                           left: 10, top: 5, right: 20, bottom: 5),
-//                       child: Text(
-//                         "BestSeller".toUpperCase(),
-//                         style: const TextStyle(
-//                           fontWeight: FontWeight.w600,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 16),
-//                   const Text("Design Thinking", style: kHeadingextStyle),
-//                   const SizedBox(height: 16),
-//                   Row(
-//                     children: <Widget>[
-//                       SvgPicture.asset("assets/icons/person.svg"),
-//                       const SizedBox(width: 5),
-//                       const Text("18K"),
-//                       const SizedBox(width: 20),
-//                       SvgPicture.asset("assets/icons/star.svg"),
-//                       const SizedBox(width: 5),
-//                       const Text("4.8")
-//                     ],
-//                   ),
-//                   const SizedBox(height: 20),
-//                   RichText(
-//                     text: TextSpan(
-//                       children: [
-//                         TextSpan(
-//                           text: "\$50 ",
-//                           style: kHeadingextStyle.copyWith(fontSize: 32),
-//                         ),
-//                         TextSpan(
-//                           text: "\$70",
-//                           style: TextStyle(
-//                             color: kTextColor.withOpacity(.5),
-//                             decoration: TextDecoration.lineThrough,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             const SizedBox(height: 60),
-//             Expanded(
-//               child: Container(
-//                 width: double.infinity,
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(50),
-//                   color: Colors.white,
-//                 ),
-//                 child: Stack(
-//                   children: <Widget>[
-//                     const Padding(
-//                       padding: EdgeInsets.all(30),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: <Widget>[
-//                           Text("Course Content", style: kTitleTextStyle),
-//                           SizedBox(height: 30),
-//                           CourseContent(
-//                             number: "01",
-//                             duration: 5.35,
-//                             title: "Welcome to the Course",
-//                             isDone: true,
-//                           ),
-//                           CourseContent(
-//                             number: '02',
-//                             duration: 19.04,
-//                             title: "Design Thinking - Intro",
-//                             isDone: true,
-//                           ),
-//                           CourseContent(
-//                             number: '03',
-//                             duration: 15.35,
-//                             title: "Design Thinking Process",
-//                           ),
-//                           CourseContent(
-//                             number: '04',
-//                             duration: 5.35,
-//                             title: "Customer Perspective",
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Positioned(
-//                       right: 0,
-//                       left: 0,
-//                       bottom: 0,
-//                       child: Container(
-//                         padding: const EdgeInsets.all(20),
-//                         height: 100,
-//                         width: double.infinity,
-//                         decoration: BoxDecoration(
-//                           color: Colors.white,
-//                           borderRadius: BorderRadius.circular(40),
-//                           boxShadow: [
-//                             BoxShadow(
-//                               offset: const Offset(0, 4),
-//                               blurRadius: 50,
-//                               color: kTextColor.withOpacity(.1),
-//                             ),
-//                           ],
-//                         ),
-//                         child: Row(
-//                           children: <Widget>[
-//                             Container(
-//                               padding: const EdgeInsets.all(14),
-//                               height: 56,
-//                               width: 80,
-//                               decoration: BoxDecoration(
-//                                 color: const Color(0xFFFFEDEE),
-//                                 borderRadius: BorderRadius.circular(40),
-//                               ),
-//                               child: SvgPicture.asset(
-//                                   "assets/icons/shopping-bag.svg"),
-//                             ),
-//                             const SizedBox(width: 20),
-//                             Expanded(
-//                               child: Container(
-//                                 alignment: Alignment.center,
-//                                 height: 56,
-//                                 decoration: BoxDecoration(
-//                                   borderRadius: BorderRadius.circular(40),
-//                                   color: kBlueColor,
-//                                 ),
-//                                 child: Text(
-//                                   "Buy Now",
-//                                   style: kSubtitleTextSyule.copyWith(
-//                                     color: Colors.white,
-//                                     fontWeight: FontWeight.bold,
-//                                   ),
-//                                 ),
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class CourseContent extends StatelessWidget {
-//   final String? number;
-//   final double? duration;
-//   final String? title;
-//   final bool? isDone;
-//   const CourseContent({
-//     Key? key,
-//     this.number,
-//     this.duration,
-//     this.title,
-//     this.isDone = false,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 30),
-//       child: Row(
-//         children: <Widget>[
-//           Text(
-//             number!,
-//             style: kHeadingextStyle.copyWith(
-//               color: kTextColor.withOpacity(.15),
-//               fontSize: 32,
-//             ),
-//           ),
-//           const SizedBox(width: 8),
-//           RichText(
-//             text: TextSpan(
-//               children: [
-//                 TextSpan(
-//                   text: "$duration mins\n",
-//                   style: TextStyle(
-//                     color: kTextColor.withOpacity(.5),
-//                     fontSize: 18,
-//                   ),
-//                 ),
-//                 TextSpan(
-//                   text: title,
-//                   style: kSubtitleTextSyule.copyWith(
-//                     fontWeight: FontWeight.w600,
-//                     height: 1.5,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           const Spacer(),
-//           Container(
-//             margin: const EdgeInsets.only(left: 20),
-//             height: 40,
-//             width: 40,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//               color: kGreenColor.withOpacity(isDone! ? 1 : .5),
-//             ),
-//             child: const Icon(Icons.play_arrow, color: Colors.white),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class BestSellerClipper extends CustomClipper<Path> {
-//   @override
-//   getClip(Size size) {
-//     var path = Path();
-//     path.lineTo(size.width - 20, 0);
-//     path.lineTo(size.width, size.height / 2);
-//     path.lineTo(size.width - 20, size.height);
-//     path.lineTo(0, size.height);
-//     path.lineTo(0, 0);
-//     path.close();
-//     return path;
-//   }
-
-//   @override
-//   bool shouldReclip(CustomClipper oldClipper) {
-//     return false;
-//   }
-// }

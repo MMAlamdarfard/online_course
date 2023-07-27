@@ -11,9 +11,14 @@ import '../../controller/controller.dart';
 import '../../widget/custom_appbar.dart';
 import 'homepage.dart';
 
-class Mainpage extends StatelessWidget {
+class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
 
+  @override
+  State<Mainpage> createState() => _MainpageState();
+}
+
+class _MainpageState extends State<Mainpage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -50,9 +55,7 @@ class Mainpage extends StatelessWidget {
   }
 
   Widget _getPage(int index) {
-    //const HomePage(),
-    //      const CoursePage(),
-    //      const SearchPage(),
+    
 
     switch (index) {
       case 4:
