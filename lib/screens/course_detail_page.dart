@@ -28,24 +28,21 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     Controller controller = Get.find();
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-      
-        BetterPlayerDataSourceType.network,
-        "http://192.168.157.248:3000/flutter1.mp4",
-         
-
-         );
-    betterPlayerController = BetterPlayerController(const BetterPlayerConfiguration(
-      
-    ),
+      BetterPlayerDataSourceType.network,
+      "http://192.168.157.248:3000/flutter1.mp4",
+    );
+    betterPlayerController = BetterPlayerController(
+        const BetterPlayerConfiguration(),
         betterPlayerDataSource: betterPlayerDataSource);
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: AppColors.statusBarBrightness,
         statusBarColor: Colors.transparent));
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: SizedBox(
         child: Stack(children: [
           SingleChildScrollView(
@@ -65,8 +62,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(60),
                               border: Border.all(
-                                width: 1,
-                                color: Colors.black.withOpacity(0.5),
+                                width: 0.5,
+                                color: AppColors.mainTextColor,
                               )),
                           child: Center(
                             child: IconButton(
@@ -80,7 +77,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.grey.shade600),
+                              color: AppColors.mainTextColor),
                         ),
                         Container(
                           width: 50,
@@ -88,8 +85,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(60),
                               border: Border.all(
-                                width: 1,
-                                color: Colors.black.withOpacity(0.5),
+                                width: 0.5,
+                                color: AppColors.mainTextColor,
                               )),
                           child: Center(
                             child: IconButton(
@@ -125,8 +122,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                           ))
                       : AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: BetterPlayer(
-                              controller: betterPlayerController)),
+                          child:
+                              BetterPlayer(controller: betterPlayerController)),
                   Container(
                     margin: const EdgeInsets.only(
                         left: 20, right: 20, top: 20, bottom: 5),
@@ -139,9 +136,12 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                           children: [
                             Row(
                               children: [
-                                const Text("تومان"),
+                                 Text("تومان",
+                                style: TextStyle(color: AppColors.mainTextColor),
+                                ),
                                 Text(
-                                    " ${DigitFormat.convert("4000000", separator: ",")} "),
+                                    " ${DigitFormat.convert("4000000", separator: ",")} ",
+                                    style: TextStyle(color:AppColors.mainTextColor),),
                               ],
                             ),
                             const SizedBox(
@@ -157,18 +157,18 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                 ),
                                 Text(
                                   "MohammadMahdi",
-                                  style: TextStyle(color: Colors.grey.shade500),
+                                  style: TextStyle(color: AppColors.mainTextColor.withOpacity(0.7)),
                                 )
                               ],
                             ),
                           ],
                         ),
-                        const Text(
+                        Text(
                           "آموزش فلاتر",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
-                              color: Colors.black),
+                              color: AppColors.mainTextColor),
                         ),
                       ],
                     ),
@@ -178,11 +178,11 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
+                        Text(
                           "توضیحات",
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.black,
+                              color: AppColors.mainTextColor,
                               fontSize: 20),
                         ),
                         AnimatedSize(
@@ -201,7 +201,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                             : AppString.bigText
                                                 .substring(0, 200),
                                         style: TextStyle(
-                                            color: Colors.grey.shade600,
+                                            color: AppColors.mainTextColor.withOpacity(0.8),
                                             fontSize: 16)),
                                     (AppString.bigText.length > 200)
                                         ? TextSpan(
@@ -228,7 +228,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 25),
                     child: Divider(
                       thickness: 0.5,
-                      color: AppColors.greyColor,
+                      color: AppColors.mainTextColor,
                     ),
                   ),
                   Container(
@@ -236,10 +236,10 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
+                        Text(
                           "درس ها",
                           style: TextStyle(
-                              color: Colors.black,
+                              color: AppColors.mainTextColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 16),
                         ),
@@ -252,9 +252,9 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                 horizontal: 15, vertical: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
+                                color: Colors.transparent,
                                 border:
-                                    Border.all(color: Colors.grey, width: 1)),
+                                    Border.all(color: AppColors.mainTextColor, width: 0.5)),
                             height: 75,
                             child: Material(
                               color: Colors.transparent,
@@ -262,7 +262,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                 onTap: () {},
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                      horizontal: 20),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -284,10 +284,17 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                           const SizedBox(
                                             width: 10,
                                           ),
-                                          Text(lessonsModel[index].title)
+                                          Text(
+                                            lessonsModel[index].title,
+                                            style: TextStyle(color: AppColors.mainTextColor),
+                                            
+                                            )
                                         ],
                                       ),
-                                      Text(lessonsModel[index].duration)
+                                      Text(lessonsModel[index].duration,
+                                      style: TextStyle(
+                                            color: AppColors.mainTextColor),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -311,12 +318,12 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                   height: Get.height * 0.08,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Get.height * 0.08),
-                    color: Colors.white,
+                    color: AppColors.backgroundColor,
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.greyColor.withOpacity(0.4),
-                        blurRadius: 7.0,
-                        spreadRadius: 5.0,
+                        blurRadius: 4.0,
+                        spreadRadius: 2.0,
                       ),
                     ],
                   ),

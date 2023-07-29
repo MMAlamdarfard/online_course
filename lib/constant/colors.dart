@@ -11,22 +11,23 @@ class AppColors {
     brightness: Brightness.dark,
   );
   static Brightness get statusBarBrightness =>
-      Get.isDarkMode ? Brightness.dark : Brightness.light;
+      Get.isDarkMode ?Brightness.light: Brightness.dark  ;
   static Color get appBarColor =>
-      Get.isDarkMode ? Colors.white : const Color(0xFF292929);
+      Get.isDarkMode ? const Color(0xFF292929) :Colors.white ;
   static Color get statusBarIconColor =>
-      Get.isDarkMode ? Colors.black : Colors.white;
+      Get.isDarkMode ? Colors.white :Colors.black ;
   static Color get backgroundColor =>
-      Get.isDarkMode ? Colors.white : const Color(0xFF333333);
+      Get.isDarkMode ? const Color(0xFF333333) :Colors.white ;
   //Can Change this color
+  //Start
   static Color get bottomNavigaitonBarSelectedColor =>
       Get.isDarkMode ? Colors.blue :Colors.blue;
+  //End    
   static Color get bottomNavigaitonBarUnselectedColor =>
-      Get.isDarkMode ?const Color(0xFF424242).withOpacity(0.4) : Colors.white;
+      Get.isDarkMode ? Colors.white:const Color(0xFF424242).withOpacity(0.4) ;
   static Color get mainTextColor =>
-      Get.isDarkMode ?  Colors.black:Colors.white ;
-  static Color get indicatorSelectedColor =>
-      Get.isDarkMode ? Colors.black : Colors.white;
+      Get.isDarkMode ? Colors.white :Colors.black ;
+ 
 
 
 

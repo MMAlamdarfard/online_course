@@ -65,9 +65,9 @@ class _MyAppBarState extends State<MyAppBar> {
                     ThemeService().switchTheme();
                   }),
                   icon: Icon(
-                      Get.isDarkMode
-                          ? Icons.nightlight_outlined
-                          : Icons.wb_sunny_outlined,
+                      Get.isDarkMode?
+                          Icons.wb_sunny_outlined:
+                           Icons.nightlight_outlined ,
                       size: 20,
                       color: widget.iconsColor),
                 ),

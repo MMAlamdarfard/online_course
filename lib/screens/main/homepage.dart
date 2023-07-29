@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           course,
                           style: TextStyle(
-                              color: AppColors.mainColor,
+                              color: AppColors.mainTextColor,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                             Text(
                                               listcourses[index].description,
                                               style: TextStyle(
-                                                color: AppColors.mainColor
+                                                color: AppColors.mainTextColor
                                               ),
                                             ),
                                             Row(
