@@ -21,8 +21,12 @@ class AppColors {
   //Can Change this color
   static Color get bottomNavigaitonBarSelectedColor =>
       Get.isDarkMode ? Colors.blue :Colors.blue;
- static Color get bottomNavigaitonBarUnselectedColor =>
+  static Color get bottomNavigaitonBarUnselectedColor =>
       Get.isDarkMode ?const Color(0xFF424242).withOpacity(0.4) : Colors.white;
+  static Color get mainTextColor =>
+      Get.isDarkMode ?  Colors.black:Colors.white ;
+  static Color get indicatorSelectedColor =>
+      Get.isDarkMode ? Colors.black : Colors.white;
 
 
 
@@ -39,9 +43,7 @@ class AppColors {
 
 
 
-
-
-  static const darkThemeFirstColor = Color(0xFF27374D);
+ static const darkThemeFirstColor = Color(0xFF27374D);
   static Color get mainColor =>
       Get.isDarkMode ? darkThemeFirstColor : Colors.white;
   static const Color bluishClr = Color(0xFF4e5ae8);

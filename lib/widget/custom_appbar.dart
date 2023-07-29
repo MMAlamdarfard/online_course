@@ -31,7 +31,7 @@ class _MyAppBarState extends State<MyAppBar> {
           color: widget.backgroundColor,
           boxShadow: [
             BoxShadow(
-              color: AppColors.blueColor.withOpacity(0.2),
+              color: AppColors.bottomNavigaitonBarSelectedColor.withOpacity(0.2),
               blurRadius: 5.0,
               spreadRadius: 1.0,
             ),
@@ -66,8 +66,8 @@ class _MyAppBarState extends State<MyAppBar> {
                   }),
                   icon: Icon(
                       Get.isDarkMode
-                          ? Icons.wb_sunny_outlined
-                          : Icons.nightlight_outlined,
+                          ? Icons.nightlight_outlined
+                          : Icons.wb_sunny_outlined,
                       size: 20,
                       color: widget.iconsColor),
                 ),

@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           course,
                           style: TextStyle(
-                              color: Colors.black.withOpacity(0.7),
+                              color: AppColors.mainColor,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
@@ -102,14 +102,14 @@ class _HomePageState extends State<HomePage> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.greyColor
-                                                      .withOpacity(0.4),
-                                                  blurRadius: 8.0,
-                                                  spreadRadius: 2.0,
-                                                ),
-                                              ],
+                                              // boxShadow: [
+                                              //   BoxShadow(
+                                              //     color: AppColors.greyColor
+                                              //         .withOpacity(0.4),
+                                              //     blurRadius: 8.0,
+                                              //     spreadRadius: 2.0,
+                                              //   ),
+                                              // ],
                                               image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: AssetImage(
@@ -126,12 +126,27 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Text(
                                               listcourses[index].description,
+                                              style: TextStyle(
+                                                color: AppColors.mainColor
+                                              ),
                                             ),
                                             Row(
                                               children: [
-                                                const Text("تومان"),
                                                 Text(
-                                                    " ${DigitFormat.convert(listcourses[index].price.toString(), separator: ",")} "),
+                                                  "تومان",
+                                                  style:TextStyle(
+                                                    color: AppColors.mainTextColor.withOpacity(0.6)
+                                                  ),
+                                                ),
+                                                Text(
+                                                    " ${DigitFormat.convert(listcourses[index].price.toString(), separator: ",")} ",
+                                                    style:TextStyle(
+                                                      color:  AppColors
+                                                              .mainTextColor
+                                                              .withOpacity(
+                                                                  0.6)
+                                                    ),
+                                                ),
                                               ],
                                             )
                                           ],
@@ -174,11 +189,23 @@ class _HomePageState extends State<HomePage> {
                   : 8,
               height: 8,
               decoration: BoxDecoration(
+                 
+                 boxShadow:
+                  (index ==(pageViewModel.length - 1) -controller.getviewPageIndex())?
+                  [
+                    BoxShadow(
+                      color: AppColors.bottomNavigaitonBarSelectedColor
+                          .withOpacity(0.4),
+                      blurRadius: 4.0,
+                      spreadRadius: 1.0,
+                    ),
+                  ]:[]
+                  ,
                   color: index ==
                           (pageViewModel.length - 1) -
                               controller.getviewPageIndex()
-                      ? AppColors.blueColor
-                      : AppColors.greyColor,
+                      ? AppColors.bottomNavigaitonBarSelectedColor
+                      : AppColors.bottomNavigaitonBarUnselectedColor,
                   borderRadius: BorderRadius.circular(4)),
             );
           })),
@@ -201,13 +228,13 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.greyColor.withOpacity(0.4),
-                      blurRadius: 8.0,
-                      spreadRadius: 2.0,
-                    ),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: AppColors.greyColor.withOpacity(0.4),
+                  //     blurRadius: 8.0,
+                  //     spreadRadius: 2.0,
+                  //   ),
+                  // ],
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(pageViewModel[index].path))),

@@ -26,7 +26,7 @@ class MyBottomNavigationBar extends StatelessWidget {
         shape: CustomShapeBorder(MediaQuery.of(context).size),
         shadows: [
           BoxShadow(
-            color: AppColors.blueColor.withOpacity(0.2),
+            color: AppColors.bottomNavigaitonBarSelectedColor.withOpacity(0.2),
             blurRadius: 5.0,
             spreadRadius: 1.0,
           ),
@@ -126,11 +126,11 @@ class MyBottomNavigationBar extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            color: AppColors.blueColor.withOpacity(0.8),
+                            color: AppColors.bottomNavigaitonBarSelectedColor.withOpacity(0.8),
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.blueColor.withOpacity(0.6),
+                                color: AppColors.bottomNavigaitonBarSelectedColor.withOpacity(0.6),
                                 blurRadius: controller.getIndex() == 2 ? 12 : 4,
                                 spreadRadius: 1,
                               )
