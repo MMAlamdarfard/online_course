@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onlinecourse/constant/colors.dart';
 import 'package:onlinecourse/screens/main/acountpage.dart';
 import 'package:onlinecourse/screens/main/coursepage.dart';
 import 'package:onlinecourse/screens/main/messagepage.dart';
@@ -25,23 +26,26 @@ class _MainpageState extends State<Mainpage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: context.theme.brightness,
-        statusBarColor: Colors.transparent));
+    
     
 
     final Controller controller = Get.put(Controller());
   
     return Scaffold(
+      backgroundColor: context.theme.primaryColor,
         body: Stack(
       children: [
         Container(
             margin: const EdgeInsets.only(top: 90, bottom: 80),
             child: Obx(() => _getPage(controller.getIndex()))),
-        const Positioned(
+         Positioned(
           top: 0,
           left: 0,
-          child: MyAppBar(),
+          child: MyAppBar(
+           backgroundColor: AppColors.appBarColor,
+           iconsColor: AppColors.statusBarIconColor,
+           statusBarColor: AppColors.statusBarBrightness,
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -60,16 +64,16 @@ class _MainpageState extends State<Mainpage> {
 
     switch (index) {
       case 4:
-        return const AcountPage();
+        return AcountPage();
       case 3:
-        return const MessagePage();
+        return  MessagePage();
       case 2:
-        return const SearchPage();
+        return  SearchPage();
       case 1:
-        return const CoursePage();
+        return  CoursePage();
       case 0:
       default:
-        return const HomePage();
+        return  HomePage();
     }
   }
 }

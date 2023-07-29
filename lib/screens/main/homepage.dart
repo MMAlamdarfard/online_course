@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
    
     return Scaffold(
-      backgroundColor: context.theme.primaryColor,
+      backgroundColor: AppColors.backgroundColor,
         body: ScrollConfiguration(
       behavior: MyBehavior(),
       child: SingleChildScrollView(
@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                             itemCount: listcourses.length,
                             itemBuilder: (context, index) {
                               return Material(
+                                color: Colors.transparent,
                                 child: InkWell(
                                   onTap: () {
                                     Get.toNamed(Screens.courseDetailPage,

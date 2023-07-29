@@ -1,26 +1,34 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinecourse/constant/colors.dart';
 import 'package:onlinecourse/constant/string.dart';
 
-
 import '../services/theme_services.dart';
 
+// ignore: must_be_immutable
 class MyAppBar extends StatefulWidget {
-  const MyAppBar({super.key});
+  Color? backgroundColor;
+  Color? iconsColor;
+  Brightness? statusBarColor;
+  MyAppBar({super.key, this.backgroundColor,this.iconsColor,this.statusBarColor});
 
   @override
   State<MyAppBar> createState() => _MyAppBarState();
 }
 
 class _MyAppBarState extends State<MyAppBar> {
+  
   @override
   Widget build(BuildContext context) {
-    
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: widget.statusBarColor,
+        statusBarColor: Colors.transparent));
+  
     return Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.backgroundColor,
           boxShadow: [
             BoxShadow(
               color: AppColors.blueColor.withOpacity(0.2),
@@ -47,47 +55,30 @@ class _MyAppBarState extends State<MyAppBar> {
                   width: 5,
                 ),
                 IconButton(
-                    onPressed: () {}, icon: const Icon(CupertinoIcons.bell)),
+                    onPressed: () {}, icon: Icon(
+                      CupertinoIcons.bell,
+                      color: widget.iconsColor,
+                      )
+                      ),
                 IconButton(
-                    onPressed: (() {
-                      ThemeService().switchTheme();
-                    }),
-                    icon: Icon(
-                        Get.isDarkMode
-                            ? Icons.wb_sunny_outlined
-                            : Icons.nightlight_outlined,
-                        size: 20,
-                        color: (Get.isDarkMode) ? Colors.white : Colors.black),
-                  ),
-                
+                  onPressed: (() {
+                    ThemeService().switchTheme();
+                  }),
+                  icon: Icon(
+                      Get.isDarkMode
+                          ? Icons.wb_sunny_outlined
+                          : Icons.nightlight_outlined,
+                      size: 20,
+                      color: widget.iconsColor),
+                ),
               ],
             ),
-            const Text(
+            Text(
               AppString.appName,
-              style: TextStyle(fontSize: 24, color: Colors.black),
+              style: TextStyle(fontSize: 24, color: widget.iconsColor),
             )
           ],
         ));
-    // return Container(
-    //   width: Get.width,
-    //   margin:const EdgeInsets.symmetric(horizontal: 15),
-    //   decoration: BoxDecoration(
-    //     color: Colors.white,
-
-    //     boxShadow: [
-    //       BoxShadow(
-    //         color: AppColors.blueColor.withOpacity(0.2),
-    //         blurRadius: 5.0,
-    //         spreadRadius: 1.0,
-    //       ),
-    //     ],
-    //   ),
-    //   child: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     children: [
-    //
-    //     ],
-    //   ),
-    // );
+    
   }
 }

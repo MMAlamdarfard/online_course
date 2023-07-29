@@ -33,7 +33,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
       
         BetterPlayerDataSourceType.network,
         "http://192.168.157.248:3000/flutter1.mp4",
-         bufferingConfiguration: BetterPlayerBufferingConfiguration()
+         
 
          );
     betterPlayerController = BetterPlayerController(const BetterPlayerConfiguration(
