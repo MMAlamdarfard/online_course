@@ -8,17 +8,21 @@ import '../controller/controller.dart';
 
 // ignore: must_be_immutable
 class MyBottomNavigationBar extends StatelessWidget {
+  Color? unselectedIconColor;
+  Color? selectedIconColor;
+  Color? backGroundColor;
   late Controller controller;
-  MyBottomNavigationBar({super.key});
+  MyBottomNavigationBar({super.key,this.backGroundColor,this.selectedIconColor,this.unselectedIconColor});
 
   @override
   Widget build(BuildContext context) {
     controller = Get.find();
     return Container(
+      
       height: Get.height,
       width: Get.width,
       decoration: ShapeDecoration(
-        color: Colors.white,
+        color: backGroundColor,
         shape: CustomShapeBorder(MediaQuery.of(context).size),
         shadows: [
           BoxShadow(
@@ -47,7 +51,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         height: 5,
                         decoration: BoxDecoration(
-                            color:setColor(0,true),
+                            color: setColor(0, true),
                             borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 bottomRight: Radius.circular(5))),
@@ -57,14 +61,13 @@ class MyBottomNavigationBar extends StatelessWidget {
                       ),
                       Icon(
                         Icons.home,
-                        color: setColor(0,false),
+                        color: setColor(0, false),
                         size: 30,
                       ),
                       Text(
                         AppString.home,
-                        style: TextStyle(
-                            color: setColor(0,false),
-                            fontSize: 12),
+                        style:
+                            TextStyle(color: setColor(0, false), fontSize: 12),
                       ),
                     ],
                   ),
@@ -87,7 +90,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         height: 5,
                         decoration: BoxDecoration(
-                            color: setColor(1,true),
+                            color: setColor(1, true),
                             borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 bottomRight: Radius.circular(5))),
@@ -97,14 +100,13 @@ class MyBottomNavigationBar extends StatelessWidget {
                       ),
                       Icon(
                         Icons.play_lesson,
-                        color: setColor(1,false),
+                        color: setColor(1, false),
                         size: 30,
                       ),
                       Text(
                         AppString.courses,
-                        style: TextStyle(
-                            color: setColor(1,false),
-                            fontSize: 12),
+                        style:
+                            TextStyle(color: setColor(1, false), fontSize: 12),
                       ),
                     ],
                   ),
@@ -123,7 +125,6 @@ class MyBottomNavigationBar extends StatelessWidget {
                   () => Column(
                     children: [
                       Container(
-                       
                         decoration: BoxDecoration(
                             color: AppColors.blueColor.withOpacity(0.8),
                             borderRadius: BorderRadius.circular(30),
@@ -134,21 +135,19 @@ class MyBottomNavigationBar extends StatelessWidget {
                                 spreadRadius: 1,
                               )
                             ]),
-                        child:const Padding(
+                        child: const Padding(
                           padding: EdgeInsets.all(8),
-                          child:  Icon(
+                          child: Icon(
                             Icons.search,
                             color: Colors.white,
                             size: 40,
                           ),
                         ),
                       ),
-                     
                       Text(
                         AppString.search,
-                        style: TextStyle(
-                            color: setColor(2,false),
-                            fontSize: 12),
+                        style:
+                            TextStyle(color: setColor(2, false), fontSize: 12),
                       ),
                     ],
                   ),
@@ -170,7 +169,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         height: 5,
                         decoration: BoxDecoration(
-                            color: setColor(3,true),
+                            color: setColor(3, true),
                             borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 bottomRight: Radius.circular(5))),
@@ -180,14 +179,13 @@ class MyBottomNavigationBar extends StatelessWidget {
                       ),
                       Icon(
                         Icons.message,
-                        color:setColor(3,false),
+                        color: setColor(3, false),
                         size: 30,
                       ),
                       Text(
                         AppString.messages,
-                        style: TextStyle(
-                            color: setColor(3,false),
-                            fontSize: 12),
+                        style:
+                            TextStyle(color: setColor(3, false), fontSize: 12),
                       ),
                     ],
                   ),
@@ -209,7 +207,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         height: 5,
                         decoration: BoxDecoration(
-                            color: setColor(4,true),
+                            color: setColor(4, true),
                             borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 bottomRight: Radius.circular(5))),
@@ -219,14 +217,13 @@ class MyBottomNavigationBar extends StatelessWidget {
                       ),
                       Icon(
                         CupertinoIcons.person,
-                        color: setColor(4,false),
+                        color: setColor(4, false),
                         size: 30,
                       ),
                       Text(
                         AppString.myAcount,
-                        style: TextStyle(
-                            color: setColor(4,false),
-                            fontSize: 12),
+                        style:
+                            TextStyle(color: setColor(4, false), fontSize: 12),
                       ),
                     ],
                   ),
@@ -238,10 +235,9 @@ class MyBottomNavigationBar extends StatelessWidget {
       ),
     );
   }
-
-  setColor(int index,bool isOpacity) => controller.getIndex() == index
-      ? AppColors.blueColor
-      : AppColors.greyColor.withOpacity(isOpacity?0:1);
+  setColor(int index, bool isOpacity) => controller.getIndex() == index
+      ? selectedIconColor
+      : isOpacity?unselectedIconColor!.withOpacity(0):unselectedIconColor;
 }
 
 class CustomShapeBorder extends ShapeBorder {

@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AppColors{
+class AppColors {
   static final light = ThemeData(
     primaryColor: Colors.white,
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
   );
   static final dark = ThemeData(
     primaryColor: darkGreyClr,
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
   );
-  static Brightness get statusBarBrightness =>Get.isDarkMode ?  Brightness.dark:Brightness.light ;
-  static Color get appBarColor =>Get.isDarkMode ? Colors.white:const Color(0xFF171717);
-  static Color get statusBarIconColor =>Get.isDarkMode ? Colors.black : Colors.white;
-  static Color get backgroundColor =>Get.isDarkMode ?  Colors.white:const Color(0xFF292929) ;
-
+  static Brightness get statusBarBrightness =>
+      Get.isDarkMode ? Brightness.dark : Brightness.light;
+  static Color get appBarColor =>
+      Get.isDarkMode ? Colors.white : const Color(0xFF292929);
+  static Color get statusBarIconColor =>
+      Get.isDarkMode ? Colors.black : Colors.white;
+  static Color get backgroundColor =>
+      Get.isDarkMode ? Colors.white : const Color(0xFF333333);
+  //Can Change this color
+  static Color get bottomNavigaitonBarSelectedColor =>
+      Get.isDarkMode ? Colors.blue :Colors.blue;
+ static Color get bottomNavigaitonBarUnselectedColor =>
+      Get.isDarkMode ?const Color(0xFF424242).withOpacity(0.4) : Colors.white;
 
 
 
@@ -34,7 +42,6 @@ class AppColors{
 
 
   static const darkThemeFirstColor = Color(0xFF27374D);
-  
   static Color get mainColor =>
       Get.isDarkMode ? darkThemeFirstColor : Colors.white;
   static const Color bluishClr = Color(0xFF4e5ae8);

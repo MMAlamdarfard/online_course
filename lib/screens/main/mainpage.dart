@@ -52,7 +52,11 @@ class _MainpageState extends State<Mainpage> {
           left: 0,
           child: SizedBox(
             height: 80,
-            child: MyBottomNavigationBar(),
+            child: MyBottomNavigationBar(
+              backGroundColor: AppColors.appBarColor,
+              selectedIconColor: AppColors.bottomNavigaitonBarSelectedColor,
+              unselectedIconColor: AppColors.bottomNavigaitonBarUnselectedColor,
+            ),
           ),
         ),
       ],
